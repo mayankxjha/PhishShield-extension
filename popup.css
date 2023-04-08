@@ -1,0 +1,47 @@
+body{
+  margin: 0;
+}
+.container {
+  width: 280px;
+  background-color: black;
+  color: snow;
+  border: red 2px solid;
+}
+
+.title {
+  font-size: 14px;
+  font-weight: bold;
+  padding: 8px;
+}
+
+.textbox {
+  width: 100%;
+  font-size: 12px;
+  margin: 0;
+  padding: 0px 2px;
+}
+
+.textbox:focus {
+  outline: 0;
+  border-color: #038dfa;
+}
+
+.links {
+  margin: 5px 5px;
+  padding: 3px;
+}
+
+.link {
+  display: flex;
+  border-bottom-color: #0667c5;
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+  border-radius: 0.8rem;
+  padding: 3px;
+  padding-bottom: 7px;
+  margin-bottom: 7px;
+}
+
+.link-title {
+  padding-left: 2px;
+}
