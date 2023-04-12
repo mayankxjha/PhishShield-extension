@@ -6,10 +6,8 @@
     "storage",
     "tabs"
   ],
-  "host_permissions": [
-    "https://mail.google.com/*",
-    "https://www.mail.google.com/*"
-  ],
+  "host_permissions": ["<all_urls>"]
+  ,
   "background": {
     "service_worker": "background.js"
   },
@@ -39,11 +37,7 @@
     }
   ],
   "action": {
-    "default_icon": {
-      "16": "assets/iconShield.jpeg",
-      "24": "assets/iconShield.jpeg",
-      "32": "assets/iconShield.jpeg"
-    },
+    "default_icon": "assets/img.png",
     "default_title": "My YT Bookmarks",
     "default_popup": "popup.html"
   },
