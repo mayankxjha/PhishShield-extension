@@ -9,8 +9,8 @@ const addNewLink = (links, link) => {
     linkTitleElement.className = "link-title";
     controlsElement.className = "link-controls";
     setLinkAttributes("play", link, controlsElement);
-    setLinkAttributes("delete", link, controlsElement);
-    setLinkAttributes("save", link, controlsElement);
+    // setLinkAttributes("delete", link, controlsElement);
+    // setLinkAttributes("save", link, controlsElement);
 
     // newLinkElement.id = "link-" + bookmark.time;
     newLinkElement.className = "link";
@@ -20,7 +20,7 @@ const addNewLink = (links, link) => {
     newLinkElement.appendChild(controlsElement);
     links.append(newLinkElement);
     percentElement.className = "percent"
-    percentElement.setAttribute('style', 'display: none');
+    percentElement.style.display = "none";
     controlsElement.append(percentElement)
 };
 
@@ -50,18 +50,30 @@ const onPlay = async (e) => {
     const options = {
         method: "POST",
         body: formData,
-        mode:'cors'
+        mode: 'cors'
     };
+    let arr = target.parentNode.querySelectorAll('img')
+    arr.forEach(a => {
+        a.setAttribute('style', 'display: none')
+    })
+    target.parentNode.querySelector('.percent').style.display = ""
+    target.parentNode.querySelector('.percent').className = "percent lds-dual-ring"
     await fetch(url, options)
         .then((response) => response.json())
         .then((data) => {
-            let arr = target.parentNode.querySelectorAll('img')
-                arr.forEach(a=>{
-                    a.setAttribute('style', 'display: none')
-                })
-            target.parentNode.querySelector('.percent')
-                .setAttribute('style', 'display: ""')
-            target.parentNode.querySelector('.percent').textContent = data;
+            let floatData = parseFloat(data)
+            if (floatData < 0.75) {
+                target.parentNode.parentNode.querySelector('.link-title').innerHTML = `<s style="color : orangered; text-decoration-thickness: 1.5px">${target.parentNode.parentNode.querySelector('.link-title').innerText}</s>`
+                target.parentNode.querySelector('.percent').className = "percent";
+                target.parentNode.querySelector('.percent').style.color = "red"
+                target.parentNode.querySelector('.percent').textContent = `${(1 - floatData).toFixed(2) * 100}% unsafe`;
+            } else {
+                target.parentNode.parentNode.querySelector('.link-title').innerHTML = `<a style="color : dodgerblue" href="${target.parentNode.parentNode.querySelector('.link-title').innerText}">${target.parentNode.parentNode.querySelector('.link-title').innerText}</a>`
+                target.parentNode.querySelector('.percent').className = "percent";
+                target.parentNode.querySelector('.percent').style.color = "darkgreen"
+                target.parentNode.querySelector('.percent').textContent = `${(floatData).toFixed(2) * 100}% safe`;
+
+            }
         });
 };
 
@@ -74,8 +86,7 @@ const setLinkAttributes = (src, link, controlParentElement) => {
     controlElement.title = link;
     if (src === 'play') {
         controlElement.addEventListener("click", onPlay);
-    }
-    else {
+    } else {
         controlElement.setAttribute('style', 'display: none')
     }
     controlParentElement.appendChild(controlElement);
