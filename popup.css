@@ -6,12 +6,13 @@
 body{
   margin: 0;
   background: #ffffff;
+  border: #2a94ee 2px solid;
 }
 .container {
   width: 400px;
   background-color: #ffffff;
   color: #000000;
-  border: #2a94ee 2px solid;
+  /*border: #2a94ee 2px solid;*/
   box-sizing: border-box;
 }
 
